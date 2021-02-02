@@ -17,7 +17,7 @@
 #define BUZ 3
 
 //---------------------------------------------Variable Declaration Section----------------------------------------------------
-LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);//I2C pins declaration
+LiquidCrystal_I2C lcd(0x27, 2, 1, 0, 4, 5, 6, 7, 3, POSITIVE);    //I2C pins declaration
 Servo servo;  
 dht DHT;
 MFRC522 rfid(SS_PIN, RST_PIN);
@@ -118,21 +118,13 @@ void loop()
   {
     display_developers_name();
   }
-  
-  //digitalWrite(LED_B, HIGH);
-  //digitalWrite(LED_G, HIGH);
-  
+    
   int chk = DHT.read11(DHT11_PIN);
 
   if (!rfid.PICC_IsNewCardPresent() || !rfid.PICC_ReadCardSerial()){
         if(O_tag){
           return;
           }
-
-    //Serial.println("loop inside ");
-
-    //Measure_temp();
-
 
  storage=measure(M_trigPin,M_echoPin);
  Serial.println(storage);
@@ -178,19 +170,8 @@ void loop()
         return;
       }
     
-  
-      
-  //lcd.setCursor(0,0); // Sets the location at which subsequent text written to the LCD will be displayed
-  //lcd.print("Storage"); // Prints string "Distance" on the LCD
-  //lcd.print(distanceCm); // Prints the distance value from the sensor
-  //lcd.print(" cm    ");
-  //lcd.setCursor(0,1);
-  //lcd.print("Distance: ");
-  //lcd.print(storage);
-  //lcd.print(" inch");
-  //delay(50);
 
-   //****************Average Distance Calculation********************
+//****************Average Distance Calculation********************
    
   for (int i=0;i<=2;i++) {       //average distance
    dist_open= measure(O_trigPin,O_echoPin);               
@@ -218,16 +199,8 @@ if ( dist_open<40 ) {
   digitalWrite(LED_G, LOW);
   servo.detach();      
 }
-//Serial.print(dist);
 return;
 }
-
-
-
-
-
-
-
 
   Serial.print(F("PICC type: "));
   MFRC522::PICC_Type piccType = rfid.PICC_GetType(rfid.uid.sak);
@@ -275,7 +248,6 @@ return;
     servo.write(0);
     delay(3000); 
        // Stop sound... 
-    //check();
   } else if(strID.indexOf("CB:AD:A7:1B") >= 0  ) {
     tone(BUZ, 1000); // Send 1KHz sound signal... 
    
@@ -297,19 +269,7 @@ return;
 
   rfid.PICC_HaltA();
   rfid.PCD_StopCrypto1();
-
-   
   Serial.println("out");
-
-  //servo.attach(servoPin);
-  //delay(1);
-  //servo.write(0);  
-  //delay(3000);       
-  //servo.write(150); 
-  
-    
   delay(1000);
-  //servo.detach();  
-    //delay(5000);
 
 }
